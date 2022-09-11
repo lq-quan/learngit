@@ -884,3 +884,112 @@
     这回`git pull`成功，但是合并有冲突，需要手动解决，解决的方法和分支管理中的解决冲突完全一样。解决后，提交，再push。
 
   - 如果`git pull`提示`no tracking information`，则说明本地分支和远程分支的链接关系没有创建，用命令`git branch --set-upstream-to <branch-name> origin/<branch-name>`。
+
+---
+
+## 六. 标签管理
+
+### 1. 创建标签
+
+- 为某个`commit`打标签
+
+  - 为最新提交的`commit`打标签，先切换到需要打标签的分支上
+
+    ~~~
+    $ git branch
+    * dev
+      master
+    $ git checkout master
+    ~~~
+
+    使用命令`git tag <name>`打一个新标签
+
+    ~~~
+    $ git tag v1.0
+    ~~~
+
+    使用`git tag`命令可查看所有标签
+
+    ~~~
+    $ git tag
+    ~~~
+
+  - 为特定版本打标签，需找到对应版本的`commit id`，如`03b7995...`
+
+    ~~~
+    $ git tag v0.9 03b7995
+    ~~~
+
+- 查看标签
+
+  - 列出标签
+
+    ~~~
+    $ git tag
+    ~~~
+
+    注意标签不是按时间顺序列出，而是按字母排序的。
+
+  - 查看标签信息，使用命令`git show <tagname>`
+
+    ~~~
+    $ git show v0.9
+    ~~~
+
+- 说明
+
+  - 创建带有说明的标签，用`-a`指定标签名，`-m`指定说明文字
+
+    ~~~
+    $ git tag -a v0.1 -m "version 0.1 released" a2a2898
+    ~~~
+
+    用命令`git show <tagname>`可以看到说明文字
+
+    ~~~
+    $ git show v0.1
+    ~~~
+
+### 2. 操作标签
+
+- 删除本地标签
+
+  - 使用命令`git tag -d <tagname>`删除某个标签
+
+    ~~~
+    $ git tag -d v0.1
+    ~~~
+
+- 推送标签
+
+  - 推送某个标签，使用命令`git push origin <tagname>`
+
+    ~~~
+    $ git push origin v1.0
+    ~~~
+
+  - 推送所有尚未推送的标签
+
+    ~~~
+    $ git push origin --tags
+    ~~~
+
+- 删除远程标签
+
+  - 先从本地删除
+
+    ~~~
+    $ git tag -d v0.9
+    ~~~
+
+  - 然后从远程删除
+
+    ~~~
+    $ git push origin :refs/tags/v0.9
+    ~~~
+
+---
+
+> Ps：上次写这么多笔记的时候还是在高中时，虽然Git还有许多我没有见过的功能，但我相信通过不断的努力一定能够熟练掌握Git
+
+> End.Thanks for reading.
